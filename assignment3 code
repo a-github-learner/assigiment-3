@@ -1,0 +1,73 @@
+#include<iostream>
+using namespace std;
+
+
+int main() {
+	time_t start, end;
+	start = clock();
+	cout << "Please input the dimension of two vectors:" << endl;
+	int n, i;
+	float num = 0, sum = 0,judge = 0;
+	cin >> n;
+	while (!cin) {
+		cin.clear();
+		cin.ignore();
+		cout << "invalid input,please input again" << endl;
+		cin>>n;
+	}
+	float* v1 = new float[n - 1];
+	float* v2 = new float[n - 1];
+	int* wrong = new int[n];
+	for (i = 0; i <= n; i++) {
+		*(wrong + i) = 0;
+	}
+	cout << "Now please input each number in two vectors:" << endl;
+	cout << "vector one:" << endl;
+for (i = 1; i <= n; i++) {
+		cin >> *(v1 + i);
+		if (!cin) {//find out which number is wrong
+			cin.clear();
+			cin.ignore();
+			*(wrong + i) = 1;
+			judge = 1;
+		}
+
+	}
+	if (judge == 1) {//modify the number
+		for (i = 0; i <= n; i++) {
+			if (*(wrong + i) != 0) {
+				cout << "The " << i << " number is wrong,please input again" << endl;
+				cin >> *(v1 + i);
+			}
+		}
+	}
+	for (i = 0; i <= n; i++) {
+		*(wrong + i) = 0;
+	}
+	cout << "vector two:" << endl;
+	for (i = 1; i <= n; i++) {
+		cin >> *(v2 + i);
+		if (!cin) {
+			cin.clear();
+			cin.ignore();
+			*(wrong + i) = 1;
+			judge = 1;
+		}
+	}
+	if (judge == 1) {
+		for (i = 0; i <= n; i++) {
+			if (*(wrong + i) != 0) {
+				cout << "The " << i << " number is wrong,please input again" << endl;
+				cin >> *(v2 + i);
+			}
+		}
+	}
+		for (i = 1; i <= n; i++) {
+			num = (*(v1 + i)) * (*(v2 + i));
+			sum += num;
+		}
+		cout << "The dot product of two vectors is:" << sum << endl;
+		end = clock();
+		cout << "it cost " << (float)(end - start) * 1000 / CLOCKS_PER_SEC << "ms" << endl;//calaculate the time
+		return 0;
+}
